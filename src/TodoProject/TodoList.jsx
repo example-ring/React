@@ -1,16 +1,16 @@
-import TodoItem from "./TodoItem";
 import "./TodoList.css"
+import TodoItem from "./TodoItem";
 
-const TodoList = () => {
+const TodoList = ({todo}) => {
 
 return (
 	<div className="TodoList">
  <h4>♡ Todo List ♥</h4>
  <input className="searchbar" placeholder="검색어 입력"></input>
 	<div className="list_wrapper"> 
-	<TodoItem></TodoItem>
-	<TodoItem></TodoItem>
-	<TodoItem></TodoItem>
+	{todo.map((it) => (
+		<TodoItem {...it}></TodoItem>
+	))}
 	</div>
 </div>
 );
