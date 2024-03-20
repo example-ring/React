@@ -1,16 +1,51 @@
 import './App.css';
+import { useState } from "react";
 import Header from "./TodoProject/Header";
 import TodoEditor from "./TodoProject/TodoEditor";
 import TodoList from "./TodoProject/TodoList";
 
+//임시 데이터 넣기
+
+const mokTodo = [
+
+{
+
+	id: 0,
+	isDone:false,
+	content: "React To do UI 구현",
+	createdDate: new Date().getTime(),
+
+}, {
+
+	id: 1,
+	isDone:false,
+	content: "React To do 기능 구현",
+	createdDate: new Date().getTime(),
+
+} , {
+
+	id: 2,
+	isDone:false,
+	content: "React 새 프로젝트",
+	createdDate: new Date().getTime(),
+
+}
+
+
+];
 
 function App () {
 
-	return <div className="App">
+	const [todo, setdo] = useState(mokTodo);
+	return (
+
+	<div className="App">
 	<Header></Header>
 	<TodoEditor></TodoEditor>
 	<TodoList></TodoList>
 	</div>
+		
+	);
 }
 export default App;
 
