@@ -1,54 +1,88 @@
 import './App.css';
-import {useRef, useState} from "react";
+import TestComp from './TodoProject/TestComp';
+import {useReducer, useRef} from "react";
 import Header from "./TodoProject/Header";
 import TodoEditor from "./TodoProject/TodoEditor";
 import TodoList from './TodoProject/TodoList';
 
 
 
+function reducer(state, action) {
+	switch (action.type) {
+		case "CREATE": {
+			return [action.newItem, ...state];
+		}
+
+		case "UPDATE": {
+			return state.map((it) => 
+				it.id === action.targetId ? {
+					...it, 
+					isDone: !it.isDone,
+				}
+				: it
+		);
+	}
+
+
+		case "DELETE": {
+			return state.filter((it) => it.id !==action.targetId);
+		}
+
+	default: 
+		return state;
+
+		}
+
+		
+	} 
+
+	const mockTodo = [
+		{
+			id: 0,
+			isDone: false,
+			content: "임시 데이터",
+			createdDate: new Date().getTime(),
+		}
+	];
+	
+
+
+
 function App () {
 
-	const [todo, setTodo] = useState([]);
+	const [todo, dispatch] = useReducer(reducer, mockTodo);
 	const idRef = useRef(3);
 
 	const onCreate = (content) => {
 
-		const newItem = {
+		dispatch({
+			type: "CREATE",
+			newItem: {
+				id: idRef.current,
+				content,
+				isDone: false,
+				createDate: new Date().getTime(),
 
-			id: idRef.current,
-			content,
-			isDone: false,
-			createdDate: new Date().getTime(),
-		};
-		setTodo([newItem, ...todo]);
+			},
+		});
 		idRef.current += 1;
 
 	};
 
 const onUpdate = (targetId) => {
 
-	setTodo(
+	dispatch ({
+		type: "UPDATE",
+		targetId,
+	});
 			
-			todo.map((it) => it.id === targetId ? {...it, isDone: !it.isDone} : it)
-
-			//간결하게 삼항 연산자로 수정
-
-			// (it) => {
-			// 	if (it.id === targetId) {
-			// 		return {
-			// 			...it,
-			// 			isDone: !it.isDone,	
-			// 		};
-			// 	} else {
-			// 		return it;
-			// 	}
-			// }
-			
-		);	
 };
 
 const onDelete = (targetId) => {
-	setTodo(todo.filter((it) => it.id !== targetId));
+	dispatch({
+		type: "DELETE",
+		targetId,
+	});
 
 };
 
@@ -56,13 +90,16 @@ const onDelete = (targetId) => {
 	return (
 
 		<div className="App">
+			<TestComp></TestComp>
 			<Header></Header>
 			<TodoEditor onCreate={onCreate}></TodoEditor>
 			<TodoList todo={todo} onUpdate={onUpdate} onDelete={onDelete}></TodoList>
 		</div>
 
 	);
+
 }
+
 export default App;
 
 // import { useState } from 'react';
@@ -94,8 +131,7 @@ export default App;
 //   const handleSetCount = (value) => {
 //     setCount(count + value);
 //   };
- 
- 
+
 //   return (
 //     <div className="App">
 //       <h1>Simple Counter Practice</h1>
@@ -109,4 +145,4 @@ export default App;
 //   );
 // }
 
-// export default App;
+// export default App; 
