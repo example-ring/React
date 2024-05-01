@@ -1,6 +1,6 @@
 import "./TodoList.css"
 import TodoItem from "./TodoItem";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const TodoList = ({todo, onUpdate, onDelete }) => {
 
@@ -15,7 +15,7 @@ const getSearchResult = () => {
 	: todo.filter((it) => it.content.toLowerCase().includes(search.toLowerCase()));
 }
 
-const analyzeTodo = () => {
+const analyzeTodo = useMemo(() => {
 
 	const totalCount = todo.length;
 	const doneCount = todo.filter((it) => it.isDone).length;
@@ -28,9 +28,9 @@ const analyzeTodo = () => {
 	};
 
 
-} 
+}, [todo]);
 
-const { totalCount, doneCount, notDoneCount } = analyzeTodo();
+const { totalCount, doneCount, notDoneCount } = analyzeTodo;
 
 return (
 	<div className="TodoList">

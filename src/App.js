@@ -1,6 +1,6 @@
 import './App.css';
 import TestComp from './TodoProject/TestComp';
-import {useReducer, useRef} from "react";
+import { useCallback, useReducer, useRef } from "react";
 import Header from "./TodoProject/Header";
 import TodoEditor from "./TodoProject/TodoEditor";
 import TodoList from './TodoProject/TodoList';
@@ -42,7 +42,27 @@ function reducer(state, action) {
 			isDone: false,
 			content: "임시 데이터",
 			createdDate: new Date().getTime(),
-		}
+			
+		},
+		{
+			id: 1,
+			isDone: false,
+			content: "임시 데이터1",
+			createdDate: new Date().getTime(),
+		},
+		{
+			id: 2,
+			isDone: false,
+			content: "임시 데이터2",
+			createdDate: new Date().getTime(),
+		},
+		{
+			id: 3,
+			isDone: false,
+			content: "임시 데이터3",
+			createdDate: new Date().getTime(),
+		},
+
 	];
 	
 
@@ -53,7 +73,7 @@ function App () {
 	const [todo, dispatch] = useReducer(reducer, mockTodo);
 	const idRef = useRef(3);
 
-	const onCreate = (content) => {
+	const onCreate = useCallback((content) => {
 
 		dispatch({
 			type: "CREATE",
@@ -61,30 +81,30 @@ function App () {
 				id: idRef.current,
 				content,
 				isDone: false,
-				createDate: new Date().getTime(),
+				createdDate: new Date().getTime(),
 
 			},
 		});
 		idRef.current += 1;
 
-	};
+	},[]);
 
-const onUpdate = (targetId) => {
+const onUpdate = useCallback((targetId) => {
 
 	dispatch ({
 		type: "UPDATE",
 		targetId,
 	});
 			
-};
+},[]);
 
-const onDelete = (targetId) => {
+const onDelete = useCallback((targetId) => {
 	dispatch({
 		type: "DELETE",
 		targetId,
 	});
 
-};
+},[]);
 
 
 	return (
