@@ -1,10 +1,14 @@
 import "./TodoList.css"
 import TodoItem from "./TodoItem";
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
+import { TodoStateContext } from "../App";
 
-const TodoList = ({todo, onUpdate, onDelete }) => {
 
+
+const TodoList = () => {
+const { todo } = useContext(TodoStateContext);
 const [ search, setsearch ] = useState("");
+
 const onChangeSearch = (e) => {
 	setsearch(e.target.value)
 };
@@ -47,11 +51,19 @@ return (
  className="searchbar" placeholder="검색어 입력"></input>
 	<div className="list_wrapper"> 
 	{getSearchResult().map((it) => (
-		<TodoItem key={it.id} {...it} onUpdate={onUpdate} onDelete={onDelete}></TodoItem>
+		<TodoItem key={it.id} {...it}></TodoItem>
 	))}
 	</div>
 </div>
 );
 
+
+
 };
+
+TodoList.defaultProps = {
+	todo: [],
+ };
+
+
 export default TodoList;

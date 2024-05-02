@@ -1,9 +1,12 @@
 import './App.css';
 import TestComp from './TodoProject/TestComp';
-import { useCallback, useReducer, useRef } from "react";
+import React, { useMemo, useCallback, useReducer, useRef } from "react";
 import Header from "./TodoProject/Header";
 import TodoEditor from "./TodoProject/TodoEditor";
 import TodoList from './TodoProject/TodoList';
+
+export const TodoStateContext = React.createContext();
+export const TodoDispatchContext = React.createContext();
 
 
 
@@ -107,13 +110,23 @@ const onDelete = useCallback((targetId) => {
 },[]);
 
 
+	const memoizedDispatches = useMemo(() => {
+		return {onCreate, onUpdate, onDelete}
+	}, [onCreate, onUpdate, onDelete]);
+
+
 	return (
 
 		<div className="App">
+			
 			<TestComp></TestComp>
 			<Header></Header>
-			<TodoEditor onCreate={onCreate}></TodoEditor>
-			<TodoList todo={todo} onUpdate={onUpdate} onDelete={onDelete}></TodoList>
+			<TodoStateContext.Provider value={todo}></TodoStateContext.Provider>
+			<TodoDispatchContext.Provider value={memoizedDispatches}>
+			<TodoEditor></TodoEditor>
+			<TodoList></TodoList>
+			</TodoDispatchContext.Provider>
+
 		</div>
 
 	);
