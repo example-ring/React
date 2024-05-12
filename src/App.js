@@ -1,14 +1,25 @@
+import { Routes, Route, Link} from "react-router-dom";
 import "./App.css";
-import { getEmotionImgById } from "./util";
+import Home from "./pages/Home";
+import New from "./pages/New";
+import Diary from "./pages/Diary";
+import Edit from "./pages/Edit";
 
 function App() {
 	return (
 	<div className="App">
-		<img alt="감정 1" src={getEmotionImgById(1)}></img>
-		<img alt="감정 2" src={getEmotionImgById(2)}></img>
-		<img alt="감정 3" src={getEmotionImgById(3)}></img>
-		<img alt="감정 4" src={getEmotionImgById(4)}></img>
-		<img alt="감정 5" src={getEmotionImgById(5)}></img>
+		<Routes>
+			<Route path="/" element={<Home></Home>}></Route>
+			<Route path="/new" element={<New></New>}></Route>
+			<Route path="/diary/:id" element={<Diary></Diary>}></Route>
+			<Route path="/edit" element={<Edit></Edit>}></Route>
+		</Routes>
+		<div>
+			<Link to={"/"}>Home</Link>
+			<Link to={"/new"}>New</Link>
+			<Link to={"/diary"}>Diary</Link>
+			<Link to={"/edit"}>Edit</Link>
+		</div>
 	</div>
 	);
 }
