@@ -1,5 +1,4 @@
 .Button {
-
     cursor: pointer;
     border: none;
     border-radius: 5px;
@@ -10,21 +9,20 @@
     font-size: 18px;
     white-space: nowrap;
     font-family: "Nanum Pen Script";
-
-}
+  }
 
 .Button_default {
-    background-color: pink;
+    background-color: rgb(255, 131, 152);
     color: black;
 
 }
 
 .Button_positive {
-    background-color: palevioletred;
-    color: white;
+    background-color: rgb(255, 194, 214);
+    color: rgb(255, 255, 255);
 }
 
 .Button_negative {
-    background-color: aquamarine;
-    color: black;
+    background-color: rgb(163, 206, 223);
+    color: rgb(255, 255, 255);
 }
