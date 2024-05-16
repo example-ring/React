@@ -1,34 +1,14 @@
-import Button from "../pages-component/Button";
-import Header from "../pages-component/Header";
+import Editor from "../pages-component/Editor";
+
 
 const Home = () => {
-    return (
-        <div>
-            <Header title={"Home"}
-            leftChild={
-                <Button
-                type="positive"
-                text={"긍정 버튼"}
-                onClick={() => {
-                    alert("positive button");
-                }}></Button>
-            }
+  return (
+    <div>
+        <Editor>
             
-            rightChild={
-            <Button
-            type="negative"
-            text={"부정 버튼"}
-                onClick={() => {
-                    alert("negative button");
-                }}
-            ></Button>}
-            >
-
-            </Header>
-
-
-        </div>
-    );
+        </Editor>
+    </div>
+  );
 };
 
 export default Home;

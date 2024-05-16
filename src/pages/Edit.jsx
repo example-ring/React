@@ -1,3 +1,5 @@
+import "./Editor.css";
+
 const Edit = () => {
     return <div>Edit 페이지</div>
 };
