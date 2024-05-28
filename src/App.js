@@ -5,20 +5,28 @@ import New from "./pages/New";
 import Diary from "./pages/Diary";
 import Edit from "./pages/Edit";
 
-function reducer(state, action) {
-	return state;
-}
 
 function reducer(state, action) {
 	switch(action.type) {
 		case "CREATE": {
 			return [action.data, ...state];
 		}
+
+		case "UPDATE": {
+			return state.map((it) => 
+			String(it.id) === String(action.data.id) ? {...action.data} : it
+			);
+		}
+
+		case "DELETE": {
+			return state.filter((it) => String(it.id) !== String(action.targetId));
+		}
 		default: {
 			return state;
 		}
 	}
 }
+
 
 function App() {
 	const [data, dispatch] = useReducer(reducer, []);
@@ -38,6 +46,24 @@ function App() {
 		idRef.current += 1;
 	};
 
+	const onUpdate = (targetId, date, content, emotionId) => {
+		dispatch({
+			type: "UPDATE",
+			data: {
+				id: targetId,
+				date: new Date(date).getTime(),
+				content,
+				emotionId,
+			},
+		});
+	};
+
+	const onDelete = (targetId) => {
+		dispatch({
+			type: "DELETE",
+			targetId,
+		});
+	};
 
 	return (
 	<div className="App">
