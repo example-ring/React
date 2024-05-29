@@ -1,10 +1,12 @@
-import { useReducer, useRef, useEffect, useState } from "react";
+import React, { useReducer, useRef, useEffect, useState } from "react";
 import "./App.css";
 import Home from "./pages/Home";
 import New from "./pages/New";
 import Diary from "./pages/Diary";
 import Edit from "./pages/Edit";
 
+export const DiaryStateContext = React.createContext();
+export const DiaryDispatchContext = React.createContext();
 
 function reducer(state, action) {
 	switch(action.type) {
@@ -106,6 +108,14 @@ function App() {
 		return <div>데이터를 불러오는 중입니다.</div>;
 	} else {
 		return (
+			<DiaryStateContext.Provider value={data}>
+				<DiaryDispatchContext.Provider
+				value={{
+					onCreate,
+					onUpdate,
+					onDelete,
+				}}
+				>
 			<div className="App">
 				<Routes>
 					<Route path="/" element={<Home></Home>}></Route>
@@ -114,6 +124,8 @@ function App() {
 					<Route path="/edit" element={<Edit></Edit>}></Route>
 				</Routes>
 			</div>
+			</DiaryDispatchContext.Provider>
+			</DiaryStateContext.Provider>
 			);
 	}
 }
