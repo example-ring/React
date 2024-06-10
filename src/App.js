@@ -1,5 +1,6 @@
 import React, { useReducer, useRef, useEffect, useState } from "react";
 import "./App.css";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import New from "./pages/New";
 import Diary from "./pages/Diary";
@@ -83,22 +84,22 @@ function App() {
 		});
 	};
 
-	const mockTodo = [
+	const mockData = [
 		{
 			id: "mock1",
-			date: new Date().getTime(),
+			date: new Date().getTime() -1,
 			content: "mock1",
 			emotionId: 1,
 		},
 		{
 			id: "mock2",
-			date: new Date().getTime(),
+			date: new Date().getTime() -2,
 			content: "mock2",
 			emotionId: 2,
 		},
 		{
 			id: "mock3",
-			date: new Date().getTime(),
+			date: new Date().getTime() -3,
 			content: "mock3",
 			emotionId: 3,
 		},
