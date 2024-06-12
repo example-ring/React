@@ -4,6 +4,7 @@ import useDiary from "../hook/useDiary";
 import Button from "../pages-component/Button";
 import Header from "../pages-component/Header";
 import { getFormattedDate } from "../util";
+import Viewer from "../pages-component/Viewer";
 
 const Diary = () => {
     const { id } = useParams(); 
@@ -24,16 +25,17 @@ const Diary = () => {
         const { date, emotionId, content } = data;
         const title = `${getFormattedDate(new Date(Number(date)))} 기록`;
         return (
-           
-            <div>
-                 <Header 
-                 title = {title}
-                 leftChild={<Button text={"< 뒤로" }/>}
-                 rightChild={<Button text={"수정하기"}></Button>}
-                 ></Header>
+
+        <div>
+            <Header 
+            title = {title}
+            leftChild={<Button text={"< 뒤로" }/>}
+            rightChild={<Button text={"수정하기"}></Button>}
+            ></Header>
                 <div>{id}번 일기</div>
                 <div>Diary 페이지</div>
-            </div>
+                <Viewer content={content} emotionId={emotionId}></Viewer>
+        </div>
         );
     }
 };
