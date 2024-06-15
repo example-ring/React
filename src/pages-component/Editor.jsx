@@ -7,7 +7,8 @@ import EmotionItem from "./EmotionItem";
 
 const Editor = ({ initData, onSubmit }) => {
     
-
+    
+    
     const [state, setState] = useState({
         date: getFormattedDate(new Date()),
         emotionId: 3,
